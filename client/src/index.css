@@ -3,35 +3,35 @@
 @tailwind utilities;
 
 :root {
-  --background: 242 242 247; /* #F2F2F7 - iOS Gray */
-  --foreground: 0 0% 0%; /* #000000 - iOS Label */
-  --muted: 229 229 234; /* #E5E5EA - iOS Gray 2 */
-  --muted-foreground: 60 60% 58%; /* #8E8E93 - iOS Gray 5 */
+  --background: 0 0% 100%; /* #FFFFFF - Arminia White */
+  --foreground: 0 0% 0%; /* #000000 - Arminia Black */
+  --muted: 0 0% 96%; /* #F5F5F5 - Light Gray */
+  --muted-foreground: 0 0% 45%; /* #737373 - Medium Gray */
   --popover: 0 0% 100%;
   --popover-foreground: 0 0% 0%;
-  --card: 255 255 255 / 0.95; /* Semi-transparent white with backdrop blur */
+  --card: 0 0% 100% / 0.95; /* Semi-transparent white with backdrop blur */
   --card-foreground: 0 0% 0%;
-  --border: 199 199 204; /* #C7C7CC - iOS Gray 3 */
-  --input: 199 199 204;
-  --primary: 207 100% 37%; /* #0068BD - Arminia Blau */
+  --border: 0 0% 90%; /* #E6E6E6 - Light border */
+  --input: 0 0% 90%;
+  --primary: 207 100% 37%; /* #0068BD - Arminia Blue */
   --primary-foreground: 0 0% 100%;
-  --secondary: 242 242 247;
+  --secondary: 0 0% 96%;
   --secondary-foreground: 0 0% 0%;
-  --accent: 242 242 247;
-  --accent-foreground: 0 0% 0%;
+  --accent: 207 100% 37%;
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%; /* #FF3B30 - iOS Red */
   --destructive-foreground: 0 0% 100%;
   --ring: 207 100% 37%;
   --radius: 0.75rem; /* 12px for iOS style */
   
-  /* iOS Specific Colors */
-  --ios-blue: 207 100% 37%; /* #0068BD */
-  --ios-green: 142 76% 47%; /* #34C759 */
-  --ios-orange: 36 100% 50%; /* #FF9500 */
-  --ios-red: 0 84% 60%; /* #FF3B30 */
-  --ios-label: 0 0% 0%; /* #000000 */
-  --ios-secondary-label: 240 2% 26% / 0.6; /* #3C3C43 with opacity */
-  --ios-tertiary-label: 240 2% 26% / 0.3; /* #3C3C43 with opacity */
+  /* Arminia Bielefeld Colors */
+  --arminia-blue: 207 100% 37%; /* #0068BD - Official Arminia Blue */
+  --arminia-black: 0 0% 0%; /* #000000 - Official Arminia Black */
+  --arminia-white: 0 0% 100%; /* #FFFFFF - Official Arminia White */
+  --arminia-light-blue: 207 100% 95%; /* Very light blue */
+  --arminia-dark-blue: 207 100% 25%; /* Darker blue */
+  --arminia-gray: 0 0% 45%; /* Medium gray for text */
+  --arminia-light-gray: 0 0% 96%; /* Light gray for backgrounds */
   
   /* Safe area support */
   --safe-area-inset-top: env(safe-area-inset-top, 44px);
@@ -94,7 +94,7 @@
   }
   
   .distance-glow {
-    text-shadow: 0 0 20px hsl(var(--ios-blue) / 0.3);
+    text-shadow: 0 0 20px hsl(var(--arminia-blue) / 0.3);
   }
 }
 
