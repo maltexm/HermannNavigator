@@ -15,12 +15,14 @@ const HERMANN_LNG = 8.839444;
 
 export default function CompassPage() {
   const [isAligned, setIsAligned] = useState(false);
+  const [alignmentTimer, setAlignmentTimer] = useState<NodeJS.Timeout | null>(null);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
   const [showPermission, setShowPermission] = useState(true);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showAR, setShowAR] = useState(false);
   const [needsOrientationPermission, setNeedsOrientationPermission] = useState(false);
+  const [smoothedIsAligned, setSmoothedIsAligned] = useState(false);
 
   const {
     position,
@@ -47,21 +49,33 @@ export default function CompassPage() {
     HERMANN_LNG
   ) : 0;
 
-  // Check alignment
+  // Check alignment with smoothing to reduce jitter
   useEffect(() => {
     if (position && heading !== null) {
       const difference = Math.abs(((bearing - heading + 540) % 360) - 180);
       const newIsAligned = difference <= 15;
       
       if (newIsAligned !== isAligned) {
-        setIsAligned(newIsAligned);
-        
-        if (newIsAligned && navigator.vibrate) {
-          navigator.vibrate([200, 100, 200]);
+        // Clear any existing timer
+        if (alignmentTimer) {
+          clearTimeout(alignmentTimer);
         }
+        
+        // Add delay to smooth transitions
+        const delay = newIsAligned ? 150 : 400; // Faster to align, slower to unalign
+        const timer = setTimeout(() => {
+          setIsAligned(newIsAligned);
+          setSmoothedIsAligned(newIsAligned);
+          
+          if (newIsAligned && navigator.vibrate) {
+            navigator.vibrate([200, 100, 200]);
+          }
+        }, delay);
+        
+        setAlignmentTimer(timer);
       }
     }
-  }, [position, heading, bearing, isAligned]);
+  }, [position, heading, bearing, isAligned, alignmentTimer]);
 
   // Handle location updates
   useEffect(() => {
@@ -308,7 +322,7 @@ export default function CompassPage() {
 
                   {/* Center Area with Alignment Status */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    {isAligned ? (
+                    {smoothedIsAligned ? (
                       <div className="text-center">
                         <div className="text-2xl mb-1">🎯</div>
                         <div className="text-xs font-bold text-primary">AUSGERICHTET</div>
