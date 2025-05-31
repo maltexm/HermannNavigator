@@ -7,7 +7,7 @@ export function StatusIndicator({ status }: StatusIndicatorProps) {
     switch (status) {
       case "active":
         return {
-          color: "bg-green-500",
+          color: "bg-foreground",
           text: "GPS an",
           pulse: false,
         };
