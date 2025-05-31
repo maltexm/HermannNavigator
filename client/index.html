@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
-    <title>Arminius - Hermann Monument Compass</title>
-    <meta name="description" content="Real-time distance and direction to Hermannsdenkmal using GPS and device compass">
+    <title>Arminius - Kompass zum Hermannsdenkmal</title>
+    <meta name="description" content="Echtzeit-Entfernung und Richtung zum Hermannsdenkmal mit GPS und Gerätekompass">
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Arminius">
-    <meta name="theme-color" content="#007AFF">
+    <meta name="theme-color" content="#005CA9">
     
     <!-- PWA Icons -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23007AFF' rx='42'/><path d='M96 48L112 80H80L96 48Z' fill='white'/><circle cx='96' cy='96' r='8' fill='white'/><path d='M96 144L80 112H112L96 144Z' fill='white' opacity='0.6'/></svg>">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23007AFF' rx='42'/><path d='M96 48L112 80H80L96 48Z' fill='white'/><circle cx='96' cy='96' r='8' fill='white'/><path d='M96 144L80 112H112L96 144Z' fill='white' opacity='0.6'/></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23005CA9' rx='42'/><path d='M96 48L112 80H80L96 48Z' fill='white'/><circle cx='96' cy='96' r='8' fill='white'/><path d='M96 144L80 112H112L96 144Z' fill='white' opacity='0.6'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23005CA9' rx='42'/><path d='M96 48L112 80H80L96 48Z' fill='white'/><circle cx='96' cy='96' r='8' fill='white'/><path d='M96 144L80 112H112L96 144Z' fill='white' opacity='0.6'/></svg>">
   </head>
   <body>
     <div id="root"></div>
@@ -29,14 +29,14 @@
       const manifestData = {
         "name": "Arminius",
         "short_name": "Arminius",
-        "description": "Hermann Monument Compass",
+        "description": "Kompass zum Hermannsdenkmal",
         "start_url": "/",
         "display": "standalone",
         "background_color": "#F2F2F7",
-        "theme_color": "#007AFF",
+        "theme_color": "#005CA9",
         "icons": [
           {
-            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23007AFF' rx='42'/><path d='M96 48L112 80H80L96 48Z' fill='white'/><circle cx='96' cy='96' r='8' fill='white'/><path d='M96 144L80 112H112L96 144Z' fill='white' opacity='0.6'/></svg>",
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23005CA9' rx='42'/><path d='M96 48L112 80H80L96 48Z' fill='white'/><circle cx='96' cy='96' r='8' fill='white'/><path d='M96 144L80 112H112L96 144Z' fill='white' opacity='0.6'/></svg>",
             "sizes": "192x192",
             "type": "image/svg+xml"
           }
