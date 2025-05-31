@@ -390,10 +390,12 @@ export default function CompassPage() {
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 bg-green-500 rounded-lg flex items-center justify-center">
-                      <svg className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 17.062c-.223 0-.369-.077-.631-.225-2.298-1.297-5.188-1.297-7.486 0-.262.148-.408.225-.631.225-.408 0-.739-.331-.739-.739 0-.262.108-.477.323-.631 2.813-1.59 6.308-1.59 9.121 0 .215.154.323.369.323.631 0 .408-.331.739-.739.739z"/>
-                      </svg>
+                    <div className="w-20 h-20 rounded-lg overflow-hidden">
+                      <img 
+                        src="/attached_assets/nur-robinson_bandfoto2024-2.png" 
+                        alt="Nur Robinson Band"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   </div>
                   <div className="flex-1 min-w-0">
@@ -407,7 +409,7 @@ export default function CompassPage() {
                       href="https://open.spotify.com/artist/144wlNEttOX8WbfBdCEXfV?si=v3sqh678Rx-1MnB-VvVpHA"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors"
+                      className="inline-flex items-center px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium rounded-lg transition-colors"
                     >
                       <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 17.062c-.223 0-.369-.077-.631-.225-2.298-1.297-5.188-1.297-7.486 0-.262.148-.408.225-.631.225-.408 0-.739-.331-.739-.739 0-.262.108-.477.323-.631 2.813-1.59 6.308-1.59 9.121 0 .215.154.323.369.323.631 0 .408-.331.739-.739.739z"/>
