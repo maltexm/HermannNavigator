@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 242 242 247; /* #F2F2F7 - iOS Gray */
+  --foreground: 0 0% 0%; /* #000000 - iOS Label */
+  --muted: 229 229 234; /* #E5E5EA - iOS Gray 2 */
+  --muted-foreground: 60 60% 58%; /* #8E8E93 - iOS Gray 5 */
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --card: 255 255 255 / 0.95; /* Semi-transparent white with backdrop blur */
+  --card-foreground: 0 0% 0%;
+  --border: 199 199 204; /* #C7C7CC - iOS Gray 3 */
+  --input: 199 199 204;
+  --primary: 207 90% 54%; /* #007AFF - iOS Blue */
+  --primary-foreground: 211 100% 99%;
+  --secondary: 242 242 247;
+  --secondary-foreground: 0 0% 0%;
+  --accent: 242 242 247;
+  --accent-foreground: 0 0% 0%;
+  --destructive: 0 84% 60%; /* #FF3B30 - iOS Red */
+  --destructive-foreground: 0 0% 100%;
+  --ring: 207 90% 54%;
+  --radius: 0.75rem; /* 12px for iOS style */
+  
+  /* iOS Specific Colors */
+  --ios-blue: 207 90% 54%; /* #007AFF */
+  --ios-green: 142 76% 47%; /* #34C759 */
+  --ios-orange: 36 100% 50%; /* #FF9500 */
+  --ios-red: 0 84% 60%; /* #FF3B30 */
+  --ios-label: 0 0% 0%; /* #000000 */
+  --ios-secondary-label: 240 2% 26% / 0.6; /* #3C3C43 with opacity */
+  --ios-tertiary-label: 240 2% 26% / 0.3; /* #3C3C43 with opacity */
+  
+  /* Safe area support */
+  --safe-area-inset-top: env(safe-area-inset-top, 44px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 34px);
+}
+
+.dark {
+  --background: 28 28 30; /* Dark mode background */
+  --foreground: 0 0% 98%;
+  --muted: 44 44 46;
+  --muted-foreground: 0 0% 65%;
+  --popover: 28 28 30;
+  --popover-foreground: 0 0% 98%;
+  --card: 44 44 46 / 0.95;
+  --card-foreground: 0 0% 98%;
+  --border: 44 44 46;
+  --input: 44 44 46;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 44 44 46;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 44 44 46;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 207 90% 54%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground min-h-screen overflow-hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .ios-card {
+    @apply bg-card/95 backdrop-blur-xl shadow-lg;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  
+  .status-bar {
+    height: var(--safe-area-inset-top);
+  }
+  
+  .home-indicator {
+    height: var(--safe-area-inset-bottom);
+  }
+  
+  .compass-arrow {
+    transition: transform 0.3s ease-out;
+    transform-origin: center;
+  }
+  
+  .distance-glow {
+    text-shadow: 0 0 20px hsl(var(--ios-blue) / 0.3);
+  }
+}
+
+@layer utilities {
+  .pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { 
+      opacity: 1; 
+    }
+    50% { 
+      opacity: 0.5; 
+    }
+  }
+}
