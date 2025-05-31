@@ -96,6 +96,14 @@
   .distance-glow {
     text-shadow: 0 0 20px hsl(var(--arminia-blue) / 0.3);
   }
+  
+  .safe-area-top {
+    padding-top: var(--safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
 }
 
 @layer utilities {

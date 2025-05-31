@@ -5,6 +5,8 @@ import { calculateDistance, calculateBearing } from "@/lib/compass";
 import { StatusIndicator } from "@/components/ui/status-indicator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { ARView } from "@/components/ARView";
+import { Camera } from "lucide-react";
 
 // Hermann Monument coordinates
 const HERMANN_LAT = 51.911667;
@@ -16,6 +18,7 @@ export default function CompassPage() {
   const [showPermission, setShowPermission] = useState(true);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showAR, setShowAR] = useState(false);
 
   const {
     position,
@@ -269,7 +272,7 @@ export default function CompassPage() {
               </CardContent>
             </Card>
 
-            {/* Alignment Status */}
+            {/* AR Button */}
             <Card className="ios-card rounded-3xl">
               <CardContent className="p-6 text-center">
                 {isAligned ? (
@@ -279,8 +282,17 @@ export default function CompassPage() {
                   </div>
                 ) : (
                   <div>
-                    <div className="text-4xl mb-2">🧭</div>
-                    <div className="text-lg font-semibold text-muted-foreground">Drehe dich, bis der Pfeil übereinstimmt</div>
+                    <div className="text-4xl mb-4">📱</div>
+                    <div className="text-lg font-semibold text-foreground mb-4">
+                      Erweiterte Realität aktivieren
+                    </div>
+                    <Button 
+                      onClick={() => setShowAR(true)}
+                      className="w-full bg-primary text-primary-foreground font-semibold py-4 px-6 rounded-2xl text-lg h-auto flex items-center justify-center gap-3"
+                    >
+                      <Camera className="w-6 h-6" />
+                      AR Modus starten
+                    </Button>
                   </div>
                 )}
               </CardContent>
@@ -318,6 +330,16 @@ export default function CompassPage() {
 
       {/* Home Indicator Space */}
       <div className="home-indicator bg-transparent"></div>
+
+      {/* AR View */}
+      {showAR && position && (
+        <ARView
+          bearing={bearing}
+          heading={heading}
+          distance={distance}
+          onClose={() => setShowAR(false)}
+        />
+      )}
     </div>
   );
 }
