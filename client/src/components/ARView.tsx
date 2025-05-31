@@ -164,13 +164,7 @@ export function ARView({ bearing, heading, distance, onClose }: ARViewProps) {
                   />
                 )}
 
-                {/* Debug info for bearing difference */}
-                <div className="absolute top-20 left-4 bg-black/70 text-white p-2 rounded text-xs">
-                  <div>Bearing Diff: {bearingDiff.toFixed(1)}°</div>
-                  <div>Heading: {heading?.toFixed(1) || 'null'}°</div>
-                  <div>Target Bearing: {bearing.toFixed(1)}°</div>
-                  <div>Hermann X: {hermannScreenX.toFixed(0)}px</div>
-                </div>
+
 
                 {/* Direction Arrows - Enhanced */}
                 {direction && direction !== "centered" && (
