@@ -16,6 +16,7 @@ export function ARView({ bearing, heading, distance, onClose }: ARViewProps) {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [isCameraActive, setIsCameraActive] = useState(false);
+  const [lastAlignmentState, setLastAlignmentState] = useState(false);
 
   useEffect(() => {
     startCamera();
@@ -75,19 +76,37 @@ export function ARView({ bearing, heading, distance, onClose }: ARViewProps) {
   const direction = getDirectionArrows();
   const isAligned = direction === "centered";
 
-  // Calculate Hermann Monument position on screen
-  const hermannScreenX = Math.sin((relativeBearing * Math.PI) / 180) * (window.innerWidth / 2) + (window.innerWidth / 2);
-  const hermannScreenY = window.innerHeight * 0.4; // Place at 40% from top
+  // Handle vibration when alignment changes
+  useEffect(() => {
+    if (isAligned && !lastAlignmentState && isCameraActive) {
+      // Just became aligned - vibrate
+      if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200, 100, 200]);
+      }
+    }
+    setLastAlignmentState(isAligned);
+  }, [isAligned, lastAlignmentState, isCameraActive]);
 
-  // Scale Hermann image based on distance (closer = larger)
+  // Calculate Hermann Monument position on screen using proper field of view
+  const fieldOfView = 90; // Degrees (typical phone camera FOV)
+  const screenCenterX = window.innerWidth / 2;
+  const screenCenterY = window.innerHeight / 2;
+  
+  // Calculate horizontal offset based on bearing difference
+  const bearingDiff = ((bearing - (heading || 0) + 540) % 360) - 180;
+  const horizontalOffset = (bearingDiff / (fieldOfView / 2)) * (window.innerWidth / 2);
+  const hermannScreenX = screenCenterX + horizontalOffset;
+  const hermannScreenY = screenCenterY - 100; // Slightly above center
+
+  // Scale Hermann image based on distance (much larger now)
   const getHermannScale = () => {
-    if (distance > 100) return 0.1; // Very far
-    if (distance > 50) return 0.15;
-    if (distance > 20) return 0.2;
-    if (distance > 10) return 0.3;
-    if (distance > 5) return 0.4;
-    if (distance > 1) return 0.6;
-    return 0.8; // Very close
+    if (distance > 100) return 0.3; // Very far
+    if (distance > 50) return 0.4;
+    if (distance > 20) return 0.6;
+    if (distance > 10) return 0.8;
+    if (distance > 5) return 1.0;
+    if (distance > 1) return 1.5;
+    return 2.0; // Very close
   };
 
   const hermannScale = getHermannScale();
@@ -126,34 +145,50 @@ export function ARView({ bearing, heading, distance, onClose }: ARViewProps) {
             {/* AR Overlays */}
             {isCameraActive && (
               <>
-                {/* Hermann Monument Image Overlay */}
-                {hermannScreenX >= -100 && hermannScreenX <= window.innerWidth + 100 && (
+                {/* Hermann Monument Image Overlay - only show when within view */}
+                {Math.abs(bearingDiff) <= fieldOfView && (
                   <img
                     src={hermannImage}
                     alt="Hermannsdenkmal"
-                    className="absolute pointer-events-none transition-all duration-300"
+                    className="absolute pointer-events-none transition-all duration-500"
                     style={{
-                      left: `${hermannScreenX - (200 * hermannScale) / 2}px`,
-                      top: `${hermannScreenY}px`,
-                      width: `${200 * hermannScale}px`,
+                      left: `${hermannScreenX - (300 * hermannScale) / 2}px`,
+                      top: `${hermannScreenY - (400 * hermannScale) / 2}px`,
+                      width: `${300 * hermannScale}px`,
                       height: `auto`,
-                      filter: isAligned ? "drop-shadow(0 0 20px #0068BD)" : "none",
-                      opacity: 0.9
+                      filter: isAligned ? "drop-shadow(0 0 30px #0068BD)" : "drop-shadow(0 0 10px rgba(0,0,0,0.5))",
+                      opacity: isAligned ? 1.0 : 0.8,
+                      transform: `scale(${isAligned ? 1.1 : 1})`,
+                      zIndex: 10
                     }}
                   />
                 )}
 
-                {/* Direction Arrows */}
+                {/* Debug info for bearing difference */}
+                <div className="absolute top-20 left-4 bg-black/70 text-white p-2 rounded text-xs">
+                  <div>Bearing Diff: {bearingDiff.toFixed(1)}°</div>
+                  <div>Heading: {heading?.toFixed(1) || 'null'}°</div>
+                  <div>Target Bearing: {bearing.toFixed(1)}°</div>
+                  <div>Hermann X: {hermannScreenX.toFixed(0)}px</div>
+                </div>
+
+                {/* Direction Arrows - Enhanced */}
                 {direction && direction !== "centered" && (
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     {direction === "left" && (
-                      <div className="absolute left-8 text-6xl text-primary animate-pulse">
-                        ←
+                      <div className="absolute left-8 flex flex-col items-center animate-pulse">
+                        <div className="text-8xl text-primary font-bold drop-shadow-lg">←</div>
+                        <div className="text-white bg-black/70 px-3 py-1 rounded text-sm font-bold">
+                          LINKS DREHEN
+                        </div>
                       </div>
                     )}
                     {direction === "right" && (
-                      <div className="absolute right-8 text-6xl text-primary animate-pulse">
-                        →
+                      <div className="absolute right-8 flex flex-col items-center animate-pulse">
+                        <div className="text-8xl text-primary font-bold drop-shadow-lg">→</div>
+                        <div className="text-white bg-black/70 px-3 py-1 rounded text-sm font-bold">
+                          RECHTS DREHEN
+                        </div>
                       </div>
                     )}
                   </div>

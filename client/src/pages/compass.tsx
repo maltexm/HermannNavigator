@@ -19,6 +19,7 @@ export default function CompassPage() {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showAR, setShowAR] = useState(false);
+  const [needsOrientationPermission, setNeedsOrientationPermission] = useState(false);
 
   const {
     position,
@@ -67,8 +68,13 @@ export default function CompassPage() {
       setLastUpdate(new Date());
       setShowPermission(false);
       setShowError(false);
+      
+      // Check if compass permission is needed on iOS
+      if (heading === null && 'DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
+        setNeedsOrientationPermission(true);
+      }
     }
-  }, [position]);
+  }, [position, heading]);
 
   // Handle errors
   useEffect(() => {

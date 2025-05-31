@@ -26,25 +26,37 @@ export function useDeviceOrientation() {
         heading = (event as any).webkitCompassHeading;
       }
       
+      // Convert to proper compass heading (0-360)
       if (heading !== null) {
-        setState(prev => ({ ...prev, heading }));
+        // Normalize to 0-360 range
+        const normalizedHeading = ((360 - heading) + 360) % 360;
+        setState(prev => ({ ...prev, heading: normalizedHeading }));
       }
     };
 
-    // Try both event types for maximum compatibility
-    window.addEventListener('deviceorientationabsolute', handleOrientation);
-    window.addEventListener('deviceorientation', handleOrientation);
+    const startListening = () => {
+      window.addEventListener('deviceorientationabsolute', handleOrientation);
+      window.addEventListener('deviceorientation', handleOrientation);
+    };
 
     // Request permission for iOS 13+
     if ('DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
       (DeviceOrientationEvent as any).requestPermission()
         .then((response: string) => {
           if (response === 'granted') {
-            window.addEventListener('deviceorientationabsolute', handleOrientation);
-            window.addEventListener('deviceorientation', handleOrientation);
+            startListening();
+          } else {
+            console.warn('Device orientation permission denied');
           }
         })
-        .catch(console.error);
+        .catch((error: any) => {
+          console.error('Device orientation permission error:', error);
+          // Try to listen anyway for older browsers
+          startListening();
+        });
+    } else {
+      // For non-iOS or older browsers
+      startListening();
     }
 
     return () => {
