@@ -507,6 +507,26 @@ export default function CompassPage() {
         )}
       </main>
 
+      {/* Privacy Footer */}
+      <footer className="mt-8 mb-4 px-6 text-center">
+        <div className="text-xs text-muted-foreground space-y-2">
+          <p>
+            Diese App speichert oder zeichnet keine Daten auf. Alle Berechnungen erfolgen lokal auf Ihrem Gerät.
+          </p>
+          <p>
+            Diese Web-App ist vollständig Open Source.{' '}
+            <a 
+              href="https://github.com/replit/arminius-compass" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              GitHub Repository ansehen
+            </a>
+          </p>
+        </div>
+      </footer>
+
       {/* Home Indicator Space */}
       <div className="home-indicator bg-transparent"></div>
 
