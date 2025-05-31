@@ -516,7 +516,7 @@ export default function CompassPage() {
           <p>
             Diese Web-App ist vollständig Open Source.{' '}
             <a 
-              href="https://github.com/replit/arminius-compass" 
+              href="https://github.com/maltexm/HermannNavigator" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-primary hover:underline"
