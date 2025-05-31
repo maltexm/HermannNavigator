@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ARView } from "@/components/ARView";
 import { Camera } from "lucide-react";
+import arminiaFlag from "@assets/arminia-bielefeld-1970s-logo.png";
 
 // Hermann Monument coordinates
 const HERMANN_LAT = 51.911667;
@@ -293,6 +294,25 @@ export default function CompassPage() {
                     </div>
                   </div>
                   
+                  {/* Hermann Monument Flag Marker */}
+                  <div 
+                    className="absolute w-6 h-6 flex items-center justify-center pointer-events-none"
+                    style={{
+                      left: `${50 + 35 * Math.sin((bearing * Math.PI) / 180)}%`,
+                      top: `${50 - 35 * Math.cos((bearing * Math.PI) / 180)}%`,
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                  >
+                    <img 
+                      src={arminiaFlag} 
+                      alt="Arminia Flag" 
+                      className="w-6 h-6 drop-shadow-md"
+                      style={{
+                        filter: isAligned ? "drop-shadow(0 0 8px hsl(var(--primary)))" : "none"
+                      }}
+                    />
+                  </div>
+
                   {/* Center Dot */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-3 h-3 rounded-full bg-primary"></div>
