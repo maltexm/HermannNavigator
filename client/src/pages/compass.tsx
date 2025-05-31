@@ -306,9 +306,16 @@ export default function CompassPage() {
                     />
                   </div>
 
-                  {/* Center Dot */}
+                  {/* Center Area with Alignment Status */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-3 h-3 rounded-full bg-primary"></div>
+                    {isAligned ? (
+                      <div className="text-center">
+                        <div className="text-2xl mb-1">🎯</div>
+                        <div className="text-xs font-bold text-primary">AUSGERICHTET</div>
+                      </div>
+                    ) : (
+                      <div className="w-3 h-3 rounded-full bg-primary"></div>
+                    )}
                   </div>
                 </div>
 
