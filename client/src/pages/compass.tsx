@@ -385,6 +385,40 @@ export default function CompassPage() {
               </CardContent>
             </Card>
 
+            {/* Spotify Widget */}
+            <Card className="ios-card rounded-3xl">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 bg-green-500 rounded-lg flex items-center justify-center">
+                      <svg className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 17.062c-.223 0-.369-.077-.631-.225-2.298-1.297-5.188-1.297-7.486 0-.262.148-.408.225-.631.225-.408 0-.739-.331-.739-.739 0-.262.108-.477.323-.631 2.813-1.59 6.308-1.59 9.121 0 .215.154.323.369.323.631 0 .408-.331.739-.739.739z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-semibold text-foreground mb-1">
+                      Nur Robinson
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Musik für die Reise zum Hermannsdenkmal
+                    </p>
+                    <a 
+                      href="https://open.spotify.com/artist/144wlNEttOX8WbfBdCEXfV?si=v3sqh678Rx-1MnB-VvVpHA"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors"
+                    >
+                      <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 17.062c-.223 0-.369-.077-.631-.225-2.298-1.297-5.188-1.297-7.486 0-.262.148-.408.225-.631.225-.408 0-.739-.331-.739-.739 0-.262.108-.477.323-.631 2.813-1.59 6.308-1.59 9.121 0 .215.154.323.369.323.631 0 .408-.331.739-.739.739z"/>
+                      </svg>
+                      Auf Spotify anhören
+                    </a>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Location Info */}
             <Card className="ios-card rounded-3xl">
               <CardContent className="p-6">
