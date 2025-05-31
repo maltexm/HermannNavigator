@@ -51,16 +51,17 @@ export default function CompassPage() {
 
   // Check alignment with smoothing to reduce jitter
   useEffect(() => {
-    if (position && heading !== null) {
+    if (position && heading !== null && bearing !== null) {
       const difference = Math.abs(((bearing - heading + 540) % 360) - 180);
       const newIsAligned = difference <= 15;
       
+      // Clear any existing timer
+      if (alignmentTimer) {
+        clearTimeout(alignmentTimer);
+        setAlignmentTimer(null);
+      }
+      
       if (newIsAligned !== isAligned) {
-        // Clear any existing timer
-        if (alignmentTimer) {
-          clearTimeout(alignmentTimer);
-        }
-        
         // Add delay to smooth transitions
         const delay = newIsAligned ? 150 : 400; // Faster to align, slower to unalign
         const timer = setTimeout(() => {
@@ -73,9 +74,12 @@ export default function CompassPage() {
         }, delay);
         
         setAlignmentTimer(timer);
+      } else {
+        // If the alignment state should be the same, update immediately to prevent getting stuck
+        setSmoothedIsAligned(newIsAligned);
       }
     }
-  }, [position, heading, bearing, isAligned, alignmentTimer]);
+  }, [position, heading, bearing]);
 
   // Handle location updates
   useEffect(() => {
