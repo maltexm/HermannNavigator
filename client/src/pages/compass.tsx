@@ -21,8 +21,6 @@ export default function CompassPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [showAR, setShowAR] = useState(false);
   const [needsOrientationPermission, setNeedsOrientationPermission] = useState(false);
-  const [manualHeading, setManualHeading] = useState<number | null>(null);
-  const [useManualCompass, setUseManualCompass] = useState(false);
 
   const {
     position,
@@ -32,8 +30,7 @@ export default function CompassPage() {
     stopWatching
   } = useGeolocation();
 
-  const { heading: deviceHeading } = useDeviceOrientation();
-  const heading = useManualCompass ? manualHeading : deviceHeading;
+  const { heading } = useDeviceOrientation();
 
   // Calculate distance and bearing
   const distance = position ? calculateDistance(
@@ -74,12 +71,8 @@ export default function CompassPage() {
       setShowError(false);
       
       // Check if compass permission is needed on iOS
-      if (deviceHeading === null && 'DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
+      if (heading === null && 'DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
         setNeedsOrientationPermission(true);
-      } else if (deviceHeading === null) {
-        // Fallback to manual compass for devices without orientation support
-        setUseManualCompass(true);
-        setManualHeading(0);
       }
     }
   }, [position, heading]);
@@ -337,48 +330,7 @@ export default function CompassPage() {
               </CardContent>
             </Card>
 
-            {/* Manual Compass Control - Show when no device heading available */}
-            {useManualCompass && (
-              <Card className="ios-card rounded-3xl">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-4 text-center">
-                    Manueller Kompass
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-primary mb-2">
-                        {manualHeading || 0}°
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Ihre aktuelle Richtung
-                      </div>
-                    </div>
-                    <div className="px-4">
-                      <input
-                        type="range"
-                        min="0"
-                        max="359"
-                        value={manualHeading || 0}
-                        onChange={(e) => setManualHeading(parseInt(e.target.value))}
-                        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
-                        style={{
-                          background: `linear-gradient(to right, hsl(var(--primary)) 0%, hsl(var(--primary)) ${((manualHeading || 0) / 360) * 100}%, hsl(var(--muted)) ${((manualHeading || 0) / 360) * 100}%, hsl(var(--muted)) 100%)`
-                        }}
-                      />
-                    </div>
-                    <div className="flex justify-between text-xs text-muted-foreground px-4">
-                      <span>N (0°)</span>
-                      <span>E (90°)</span>
-                      <span>S (180°)</span>
-                      <span>W (270°)</span>
-                    </div>
-                    <div className="text-center text-xs text-muted-foreground">
-                      Schieben Sie den Regler, um Ihre Blickrichtung einzustellen
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+
 
             {/* AR Button */}
             <Card className="ios-card rounded-3xl">
