@@ -55,31 +55,33 @@ export default function CompassPage() {
       const difference = Math.abs(((bearing - heading + 540) % 360) - 180);
       const newIsAligned = difference <= 15;
       
-      // Clear any existing timer
+      // Clear any existing timer when heading changes
       if (alignmentTimer) {
         clearTimeout(alignmentTimer);
         setAlignmentTimer(null);
       }
       
-      if (newIsAligned !== isAligned) {
-        // Add delay to smooth transitions
-        const delay = newIsAligned ? 150 : 400; // Faster to align, slower to unalign
-        const timer = setTimeout(() => {
-          setIsAligned(newIsAligned);
-          setSmoothedIsAligned(newIsAligned);
-          
-          if (newIsAligned && navigator.vibrate) {
-            navigator.vibrate([200, 100, 200]);
-          }
-        }, delay);
-        
-        setAlignmentTimer(timer);
-      } else {
-        // If the alignment state should be the same, update immediately to prevent getting stuck
+      // Always check alignment state, don't rely on previous state comparison
+      const delay = newIsAligned ? 100 : 200; // Reduced delays for more responsive feedback
+      const timer = setTimeout(() => {
+        setIsAligned(newIsAligned);
         setSmoothedIsAligned(newIsAligned);
-      }
+        
+        if (newIsAligned && navigator.vibrate) {
+          navigator.vibrate([200, 100, 200]);
+        }
+      }, delay);
+      
+      setAlignmentTimer(timer);
     }
-  }, [position, heading, bearing]);
+    
+    // Cleanup timer on unmount
+    return () => {
+      if (alignmentTimer) {
+        clearTimeout(alignmentTimer);
+      }
+    };
+  }, [heading, bearing]); // Only depend on heading and bearing, not position or previous alignment state
 
   // Handle location updates
   useEffect(() => {
