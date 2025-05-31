@@ -110,6 +110,19 @@ export default function CompassPage() {
     requestLocation();
   };
 
+  const handleRequestOrientationPermission = async () => {
+    if ('DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
+      try {
+        const permission = await (DeviceOrientationEvent as any).requestPermission();
+        if (permission === 'granted') {
+          setNeedsOrientationPermission(false);
+        }
+      } catch (error) {
+        console.error('Error requesting orientation permission:', error);
+      }
+    }
+  };
+
   const getGPSStatus = () => {
     if (geoError) return "error";
     if (geoLoading) return "searching";
@@ -200,6 +213,25 @@ export default function CompassPage() {
                 className="w-full bg-primary text-primary-foreground font-semibold py-4 px-6 rounded-2xl text-lg h-auto"
               >
                 Erneut versuchen
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Orientation Permission Request */}
+        {needsOrientationPermission && position && (
+          <Card className="ios-card rounded-3xl mb-6">
+            <CardContent className="p-8 text-center">
+              <div className="text-6xl mb-4">🧭</div>
+              <h2 className="text-2xl font-bold mb-3 text-foreground">Kompass Berechtigung</h2>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                Für die AR-Funktion wird Zugriff auf den Kompass benötigt, um die Richtung zu bestimmen.
+              </p>
+              <Button 
+                onClick={handleRequestOrientationPermission}
+                className="w-full bg-primary text-primary-foreground font-semibold py-4 px-6 rounded-2xl text-lg h-auto"
+              >
+                Kompass aktivieren
               </Button>
             </CardContent>
           </Card>
