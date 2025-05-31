@@ -86,7 +86,7 @@ export default function CompassPage() {
           message = "Zugriff auf den Standort verweigert. Bitte Standortfreigabe in den Browser-Einstellungen aktivieren.";
           break;
         case geoError.POSITION_UNAVAILABLE:
-          message = "Standortinformationen sind nicht verf\u00fcgbar. Bitte versuche es erneut.";
+          message = "Standortinformationen sind nicht verfügbar. Bitte versuche es erneut.";
           break;
         case geoError.TIMEOUT:
           message = "Die Standortabfrage hat zu lange gedauert. Bitte versuche es erneut.";
@@ -178,7 +178,7 @@ export default function CompassPage() {
               <div className="text-6xl mb-4">🧭</div>
           <h2 className="text-2xl font-bold mb-3 text-foreground">Standortzugriff erforderlich</h2>
           <p className="text-muted-foreground mb-6 leading-relaxed">
-            Arminius ben\u00f6tigt Zugriff auf deinen Standort, um Entfernung und Richtung zum Hermannsdenkmal zu berechnen.
+            Arminius benötigt Zugriff auf deinen Standort, um Entfernung und Richtung zum Hermannsdenkmal zu berechnen.
           </p>
               <Button 
                 onClick={handleRequestLocation}
@@ -348,7 +348,7 @@ export default function CompassPage() {
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">L\u00e4ngengrad:</span>
+                    <span className="text-muted-foreground">Längengrad:</span>
                     <span className="font-mono text-foreground">
                       {formatCoordinate(position.coords.longitude, false)}
                     </span>
