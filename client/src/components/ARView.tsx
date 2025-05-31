@@ -125,7 +125,10 @@ export function ARView({ bearing, heading, distance, onClose }: ARViewProps) {
                 <Button onClick={startCamera} className="mr-3">
                   Erneut versuchen
                 </Button>
-                <Button variant="outline" onClick={onClose}>
+                <Button variant="outline" onClick={() => {
+                  stopCamera();
+                  onClose();
+                }}>
                   Schließen
                 </Button>
               </CardContent>
@@ -248,7 +251,10 @@ export function ARView({ bearing, heading, distance, onClose }: ARViewProps) {
 
         {/* Close Button */}
         <Button
-          onClick={onClose}
+          onClick={() => {
+            stopCamera();
+            onClose();
+          }}
           variant="outline"
           size="icon"
           className="absolute top-4 right-4 safe-area-top bg-black/50 border-white/20 text-white hover:bg-black/70"
