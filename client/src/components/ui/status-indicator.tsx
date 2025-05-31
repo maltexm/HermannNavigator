@@ -8,25 +8,25 @@ export function StatusIndicator({ status }: StatusIndicatorProps) {
       case "active":
         return {
           color: "bg-green-500",
-          text: "GPS On",
+          text: "GPS an",
           pulse: false,
         };
       case "searching":
         return {
           color: "bg-orange-500",
-          text: "Searching",
+          text: "Suche",
           pulse: true,
         };
       case "error":
         return {
           color: "bg-red-500",
-          text: "GPS Error",
+          text: "GPS-Fehler",
           pulse: false,
         };
       default:
         return {
           color: "bg-gray-400",
-          text: "GPS Off",
+          text: "GPS aus",
           pulse: false,
         };
     }

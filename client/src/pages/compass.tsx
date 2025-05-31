@@ -70,17 +70,17 @@ export default function CompassPage() {
   // Handle errors
   useEffect(() => {
     if (geoError) {
-      let message = "Unable to get your location.";
+      let message = "Standort konnte nicht ermittelt werden.";
       
       switch(geoError.code) {
         case geoError.PERMISSION_DENIED:
-          message = "Location access denied. Please enable location services in your browser settings.";
+          message = "Zugriff auf den Standort verweigert. Bitte Standortfreigabe in den Browser-Einstellungen aktivieren.";
           break;
         case geoError.POSITION_UNAVAILABLE:
-          message = "Location information is unavailable. Please try again.";
+          message = "Standortinformationen sind nicht verf\u00fcgbar. Bitte versuche es erneut.";
           break;
         case geoError.TIMEOUT:
-          message = "Location request timed out. Please try again.";
+          message = "Die Standortabfrage hat zu lange gedauert. Bitte versuche es erneut.";
           break;
       }
       
@@ -154,15 +154,15 @@ export default function CompassPage() {
           <Card className="ios-card rounded-3xl mb-6">
             <CardContent className="p-8 text-center">
               <div className="text-6xl mb-4">🧭</div>
-              <h2 className="text-2xl font-bold mb-3 text-foreground">Location Access Needed</h2>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                Arminius needs access to your location to calculate the distance and direction to the Hermann Monument.
-              </p>
+          <h2 className="text-2xl font-bold mb-3 text-foreground">Standortzugriff erforderlich</h2>
+          <p className="text-muted-foreground mb-6 leading-relaxed">
+            Arminius ben\u00f6tigt Zugriff auf deinen Standort, um Entfernung und Richtung zum Hermannsdenkmal zu berechnen.
+          </p>
               <Button 
                 onClick={handleRequestLocation}
                 className="w-full bg-primary text-primary-foreground font-semibold py-4 px-6 rounded-2xl text-lg h-auto"
               >
-                Enable Location
+                Standort freigeben
               </Button>
             </CardContent>
           </Card>
@@ -173,8 +173,8 @@ export default function CompassPage() {
           <Card className="ios-card rounded-3xl mb-6">
             <CardContent className="p-8 text-center">
               <div className="text-6xl mb-4 pulse">📡</div>
-              <h2 className="text-2xl font-bold mb-3 text-foreground">Finding Your Location</h2>
-              <p className="text-muted-foreground">Getting GPS coordinates...</p>
+          <h2 className="text-2xl font-bold mb-3 text-foreground">Standort wird ermittelt</h2>
+          <p className="text-muted-foreground">GPS-Koordinaten werden abgerufen...</p>
             </CardContent>
           </Card>
         )}
@@ -184,13 +184,13 @@ export default function CompassPage() {
           <Card className="ios-card rounded-3xl mb-6">
             <CardContent className="p-8 text-center">
               <div className="text-6xl mb-4">⚠️</div>
-              <h2 className="text-2xl font-bold mb-3 text-foreground">Location Error</h2>
+          <h2 className="text-2xl font-bold mb-3 text-foreground">Standortfehler</h2>
               <p className="text-muted-foreground mb-6">{errorMessage}</p>
               <Button 
                 onClick={handleRetry}
                 className="w-full bg-primary text-primary-foreground font-semibold py-4 px-6 rounded-2xl text-lg h-auto"
               >
-                Try Again
+                Erneut versuchen
               </Button>
             </CardContent>
           </Card>
@@ -203,7 +203,7 @@ export default function CompassPage() {
             {/* Distance Card */}
             <Card className="ios-card rounded-3xl">
               <CardContent className="p-8 text-center">
-                <h2 className="text-lg font-semibold text-muted-foreground mb-2">Distance to Hermann Monument</h2>
+                <h2 className="text-lg font-semibold text-muted-foreground mb-2">Entfernung zum Hermannsdenkmal</h2>
                 <div className="text-6xl font-bold text-primary mb-2 distance-glow">
                   {formattedDistance.value}
                 </div>
@@ -216,7 +216,7 @@ export default function CompassPage() {
             {/* Compass Card */}
             <Card className="ios-card rounded-3xl">
               <CardContent className="p-8 text-center">
-                <h2 className="text-lg font-semibold text-muted-foreground mb-6">Direction</h2>
+                <h2 className="text-lg font-semibold text-muted-foreground mb-6">Richtung</h2>
                 
                 {/* Compass Circle */}
                 <div className="relative w-48 h-48 mx-auto mb-6">
@@ -226,7 +226,7 @@ export default function CompassPage() {
                   {/* Cardinal Directions */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="absolute -top-3 text-sm font-bold text-muted-foreground">N</div>
-                    <div className="absolute -right-3 text-sm font-bold text-muted-foreground">E</div>
+                    <div className="absolute -right-3 text-sm font-bold text-muted-foreground">O</div>
                     <div className="absolute -bottom-3 text-sm font-bold text-muted-foreground">S</div>
                     <div className="absolute -left-3 text-sm font-bold text-muted-foreground">W</div>
                   </div>
@@ -254,13 +254,13 @@ export default function CompassPage() {
                 {/* Bearing Information */}
                 <div className="flex justify-center space-x-8 text-sm">
                   <div className="text-center">
-                    <div className="text-muted-foreground">Bearing</div>
+                    <div className="text-muted-foreground">Peilung</div>
                     <div className="font-bold text-foreground">
                       {Math.round(bearing)}°
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-muted-foreground">Accuracy</div>
+                    <div className="text-muted-foreground">Genauigkeit</div>
                     <div className="font-bold text-foreground">
                       ±{Math.round(position.coords.accuracy)}m
                     </div>
@@ -275,12 +275,12 @@ export default function CompassPage() {
                 {isAligned ? (
                   <div>
                     <div className="text-4xl mb-2">🎯</div>
-                    <div className="text-lg font-semibold text-green-600">Pointing at Hermann Monument!</div>
+                    <div className="text-lg font-semibold text-green-600">Auf das Hermannsdenkmal ausgerichtet!</div>
                   </div>
                 ) : (
                   <div>
                     <div className="text-4xl mb-2">🧭</div>
-                    <div className="text-lg font-semibold text-muted-foreground">Turn to align with the arrow</div>
+                    <div className="text-lg font-semibold text-muted-foreground">Drehe dich, bis der Pfeil \u00fcbereinstimmt</div>
                   </div>
                 )}
               </CardContent>
@@ -289,24 +289,24 @@ export default function CompassPage() {
             {/* Location Info */}
             <Card className="ios-card rounded-3xl">
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-3">Your Location</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-3">Dein Standort</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Latitude:</span>
+                    <span className="text-muted-foreground">Breitengrad:</span>
                     <span className="font-mono text-foreground">
                       {formatCoordinate(position.coords.latitude, true)}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Longitude:</span>
+                    <span className="text-muted-foreground">L\u00e4ngengrad:</span>
                     <span className="font-mono text-foreground">
                       {formatCoordinate(position.coords.longitude, false)}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Last Update:</span>
+                    <span className="text-muted-foreground">Letzte Aktualisierung:</span>
                     <span className="text-foreground">
-                      {lastUpdate ? "Just now" : "Never"}
+                      {lastUpdate ? "Gerade eben" : "Nie"}
                     </span>
                   </div>
                 </div>

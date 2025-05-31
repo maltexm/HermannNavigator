@@ -13,19 +13,19 @@
   --card-foreground: 0 0% 0%;
   --border: 199 199 204; /* #C7C7CC - iOS Gray 3 */
   --input: 199 199 204;
-  --primary: 207 90% 54%; /* #007AFF - iOS Blue */
-  --primary-foreground: 211 100% 99%;
+  --primary: 207 100% 37%; /* #0068BD - Arminia Blau */
+  --primary-foreground: 0 0% 100%;
   --secondary: 242 242 247;
   --secondary-foreground: 0 0% 0%;
   --accent: 242 242 247;
   --accent-foreground: 0 0% 0%;
   --destructive: 0 84% 60%; /* #FF3B30 - iOS Red */
   --destructive-foreground: 0 0% 100%;
-  --ring: 207 90% 54%;
+  --ring: 207 100% 37%;
   --radius: 0.75rem; /* 12px for iOS style */
   
   /* iOS Specific Colors */
-  --ios-blue: 207 90% 54%; /* #007AFF */
+  --ios-blue: 207 100% 37%; /* #0068BD */
   --ios-green: 142 76% 47%; /* #34C759 */
   --ios-orange: 36 100% 50%; /* #FF9500 */
   --ios-red: 0 84% 60%; /* #FF3B30 */
@@ -49,15 +49,15 @@
   --card-foreground: 0 0% 98%;
   --border: 44 44 46;
   --input: 44 44 46;
-  --primary: 207 90% 54%;
-  --primary-foreground: 211 100% 99%;
+  --primary: 207 100% 37%;
+  --primary-foreground: 0 0% 100%;
   --secondary: 44 44 46;
   --secondary-foreground: 0 0% 98%;
   --accent: 44 44 46;
   --accent-foreground: 0 0% 98%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 207 90% 54%;
+  --ring: 207 100% 37%;
 }
 
 @layer base {
