@@ -391,7 +391,7 @@ export default function CompassPage() {
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-20 h-20 rounded-lg overflow-hidden">
+                    <div className="w-32 h-20 rounded-lg overflow-hidden">
                       <img 
                         src={nurRobinsonPhoto} 
                         alt="Nur Robinson Band"
