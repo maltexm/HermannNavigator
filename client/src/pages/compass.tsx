@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ARView } from "@/components/ARView";
 import { Camera } from "lucide-react";
-import nurRobinsonPhoto from "@assets/nur-robinson_optimized.jpg";
+import nurRobinsonPhoto from "@assets/nur-robinson_optimized_white.jpg";
 import arminiaFlag from "@assets/arminia-bielefeld-1970s-logo.png";
 
 // Hermann Monument coordinates
