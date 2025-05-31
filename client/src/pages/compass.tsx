@@ -275,12 +275,12 @@ export default function CompassPage() {
                 {isAligned ? (
                   <div>
                     <div className="text-4xl mb-2">🎯</div>
-                    <div className="text-lg font-semibold text-green-600">Auf das Hermannsdenkmal ausgerichtet!</div>
+                    <div className="text-lg font-semibold text-primary">Auf das Hermannsdenkmal ausgerichtet!</div>
                   </div>
                 ) : (
                   <div>
                     <div className="text-4xl mb-2">🧭</div>
-                    <div className="text-lg font-semibold text-muted-foreground">Drehe dich, bis der Pfeil \u00fcbereinstimmt</div>
+                    <div className="text-lg font-semibold text-muted-foreground">Drehe dich, bis der Pfeil übereinstimmt</div>
                   </div>
                 )}
               </CardContent>
