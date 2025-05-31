@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ARView } from "@/components/ARView";
 import { Camera } from "lucide-react";
-import nurRobinsonPhoto from "@assets/nur-robinson_bandfoto2024-2.png";
+import nurRobinsonPhoto from "@assets/nur-robinson_optimized.jpg";
 import arminiaFlag from "@assets/arminia-bielefeld-1970s-logo.png";
 
 // Hermann Monument coordinates
@@ -391,11 +391,16 @@ export default function CompassPage() {
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-32 h-20 rounded-lg overflow-hidden">
+                    <div className="w-32 h-20 rounded-lg overflow-hidden bg-muted">
                       <img 
                         src={nurRobinsonPhoto} 
                         alt="Nur Robinson Band"
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        onLoad={(e) => {
+                          e.currentTarget.style.opacity = '1';
+                        }}
+                        style={{ opacity: '0', transition: 'opacity 0.3s ease' }}
                       />
                     </div>
                   </div>
