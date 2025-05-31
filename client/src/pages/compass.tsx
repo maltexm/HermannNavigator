@@ -6,7 +6,7 @@ import { StatusIndicator } from "@/components/ui/status-indicator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ARView } from "@/components/ARView";
-import { Camera } from "lucide-react";
+import { Camera, Share2 } from "lucide-react";
 import nurRobinsonPhoto from "@assets/nur-robinson_optimized_white.jpg";
 import arminiaFlag from "@assets/arminia-bielefeld-1970s-logo.png";
 
@@ -170,6 +170,41 @@ export default function CompassPage() {
       ? (coord >= 0 ? "N" : "S")
       : (coord >= 0 ? "E" : "W");
     return `${Math.abs(coord).toFixed(4)}°${direction}`;
+  };
+
+  const handleShare = async () => {
+    if (!position || distance === null) return;
+    
+    const distanceText = distance < 1 
+      ? `${Math.round(distance * 1000)} Meter` 
+      : `${distance.toFixed(1)} Kilometer`;
+    
+    const shareData = {
+      title: 'Arminius - Meine Entfernung zum Hermannsdenkmal',
+      text: `Ich bin ${distanceText} vom Hermannsdenkmal entfernt! 🏛️ Kompass-App mit Arminia Bielefeld 💙`,
+      url: window.location.href
+    };
+
+    try {
+      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback to copying to clipboard
+        const shareText = `${shareData.text}\n${shareData.url}`;
+        await navigator.clipboard.writeText(shareText);
+        alert('Link wurde in die Zwischenablage kopiert!');
+      }
+    } catch (error) {
+      console.error('Sharing failed:', error);
+      // Fallback to copying to clipboard
+      try {
+        const shareText = `${shareData.text}\n${shareData.url}`;
+        await navigator.clipboard.writeText(shareText);
+        alert('Link wurde in die Zwischenablage kopiert!');
+      } catch (clipboardError) {
+        alert('Teilen fehlgeschlagen. Bitte kopiere den Link manuell.');
+      }
+    }
   };
 
   const relativeBearing = heading !== null ? (bearing - heading + 360) % 360 : 0;
@@ -341,18 +376,33 @@ export default function CompassPage() {
                 </div>
 
                 {/* Bearing Information */}
-                <div className="flex justify-center space-x-8 text-sm">
-                  <div className="text-center">
-                    <div className="text-muted-foreground">Peilung</div>
-                    <div className="font-bold text-foreground">
-                      {Math.round(bearing)}°
+                <div className="space-y-4">
+                  <div className="flex justify-center space-x-8 text-sm">
+                    <div className="text-center">
+                      <div className="text-muted-foreground">Peilung</div>
+                      <div className="font-bold text-foreground">
+                        {Math.round(bearing)}°
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-muted-foreground">Genauigkeit</div>
+                      <div className="font-bold text-foreground">
+                        ±{Math.round(position.coords.accuracy)}m
+                      </div>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-muted-foreground">Genauigkeit</div>
-                    <div className="font-bold text-foreground">
-                      ±{Math.round(position.coords.accuracy)}m
-                    </div>
+                  
+                  {/* Share Button */}
+                  <div className="flex justify-center">
+                    <Button 
+                      onClick={handleShare}
+                      variant="outline" 
+                      size="sm"
+                      className="flex items-center gap-2"
+                    >
+                      <Share2 className="w-4 h-4" />
+                      Entfernung teilen
+                    </Button>
                   </div>
                 </div>
               </CardContent>
