@@ -19,17 +19,22 @@ export function useDeviceOrientation() {
     setState(prev => ({ ...prev, isSupported: true }));
 
     const handleOrientation = (event: DeviceOrientationEvent) => {
-      let heading = event.alpha;
-      
-      // For iOS devices, use webkitCompassHeading if available
-      if (heading === null && 'webkitCompassHeading' in event) {
-        heading = (event as any).webkitCompassHeading;
+      let heading: number | null = null;
+
+      // Prefer webkitCompassHeading on iOS as it represents the actual
+      // compass direction. `alpha` can be relative to the device's orientation
+      // which results in incorrect values when the screen orientation changes.
+      if ('webkitCompassHeading' in event && typeof (event as any).webkitCompassHeading === 'number') {
+        heading = (event as any).webkitCompassHeading as number;
+      } else if (typeof event.alpha === 'number') {
+        // `alpha` is 0 at the device facing east and increases clockwise.
+        // Convert it to a compass heading where 0 is north.
+        heading = (360 - event.alpha) % 360;
       }
-      
-      // Convert to proper compass heading (0-360)
+
       if (heading !== null) {
         // Normalize to 0-360 range
-        const normalizedHeading = ((360 - heading) + 360) % 360;
+        const normalizedHeading = (heading + 360) % 360;
         setState(prev => ({ ...prev, heading: normalizedHeading }));
       }
     };
