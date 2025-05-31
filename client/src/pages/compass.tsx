@@ -20,6 +20,8 @@ export default function CompassPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [showAR, setShowAR] = useState(false);
   const [needsOrientationPermission, setNeedsOrientationPermission] = useState(false);
+  const [manualHeading, setManualHeading] = useState<number | null>(null);
+  const [useManualCompass, setUseManualCompass] = useState(false);
 
   const {
     position,
@@ -29,7 +31,8 @@ export default function CompassPage() {
     stopWatching
   } = useGeolocation();
 
-  const { heading } = useDeviceOrientation();
+  const { heading: deviceHeading } = useDeviceOrientation();
+  const heading = useManualCompass ? manualHeading : deviceHeading;
 
   // Calculate distance and bearing
   const distance = position ? calculateDistance(
@@ -70,8 +73,12 @@ export default function CompassPage() {
       setShowError(false);
       
       // Check if compass permission is needed on iOS
-      if (heading === null && 'DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
+      if (deviceHeading === null && 'DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
         setNeedsOrientationPermission(true);
+      } else if (deviceHeading === null) {
+        // Fallback to manual compass for devices without orientation support
+        setUseManualCompass(true);
+        setManualHeading(0);
       }
     }
   }, [position, heading]);
@@ -169,7 +176,7 @@ export default function CompassPage() {
       </header>
 
       {/* Main Content */}
-      <main className="px-6 pb-6 flex-1 flex flex-col justify-center" style={{ height: "calc(100vh - 140px)" }}>
+      <main className="px-6 pb-6 flex-1">
         
         {/* Permission Request Card */}
         {showPermission && (

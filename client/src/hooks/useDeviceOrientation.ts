@@ -44,24 +44,13 @@ export function useDeviceOrientation() {
       window.addEventListener('deviceorientation', handleOrientation);
     };
 
-    // Request permission for iOS 13+
+    // Start listening immediately for most browsers
+    startListening();
+    
+    // For iOS 13+, permission is handled separately when user clicks button
     if ('DeviceOrientationEvent' in window && 'requestPermission' in DeviceOrientationEvent) {
-      (DeviceOrientationEvent as any).requestPermission()
-        .then((response: string) => {
-          if (response === 'granted') {
-            startListening();
-          } else {
-            console.warn('Device orientation permission denied');
-          }
-        })
-        .catch((error: any) => {
-          console.error('Device orientation permission error:', error);
-          // Try to listen anyway for older browsers
-          startListening();
-        });
-    } else {
-      // For non-iOS or older browsers
-      startListening();
+      // Don't auto-request permission, wait for user interaction
+      console.log('Device orientation requires permission on this device');
     }
 
     return () => {
