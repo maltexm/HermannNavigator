@@ -294,21 +294,21 @@ export default function CompassPage() {
                     </div>
                   </div>
                   
-                  {/* Hermann Monument Flag Marker */}
+                  {/* Hermann Monument Flag Marker - On outer circle */}
                   <div 
-                    className="absolute w-6 h-6 flex items-center justify-center pointer-events-none"
+                    className="absolute w-8 h-8 flex items-center justify-center pointer-events-none"
                     style={{
-                      left: `${50 + 35 * Math.sin((bearing * Math.PI) / 180)}%`,
-                      top: `${50 - 35 * Math.cos((bearing * Math.PI) / 180)}%`,
+                      left: `${50 + 48 * Math.sin((bearing * Math.PI) / 180)}%`,
+                      top: `${50 - 48 * Math.cos((bearing * Math.PI) / 180)}%`,
                       transform: 'translate(-50%, -50%)'
                     }}
                   >
                     <img 
                       src={arminiaFlag} 
                       alt="Arminia Flag" 
-                      className="w-6 h-6 drop-shadow-md"
+                      className="w-8 h-8 drop-shadow-lg"
                       style={{
-                        filter: isAligned ? "drop-shadow(0 0 8px hsl(var(--primary)))" : "none"
+                        filter: isAligned ? "drop-shadow(0 0 12px hsl(var(--primary)))" : "drop-shadow(0 2px 4px rgba(0,0,0,0.3))"
                       }}
                     />
                   </div>
