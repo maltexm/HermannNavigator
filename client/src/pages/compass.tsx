@@ -181,7 +181,7 @@ export default function CompassPage() {
     
     const shareData = {
       title: 'Arminius - Meine Entfernung zum Hermannsdenkmal',
-      text: `Ich bin ${distanceText} vom Hermannsdenkmal entfernt! 🏛️ Kompass-App mit Arminia Bielefeld 💙`,
+      text: `Ich bin ${distanceText} vom Hermannsdenkmal entfernt. 💙🤍🖤 Supporte "Nur Robinson" auf Spotify! #arminia #bielefeld #punkrock`,
       url: window.location.href
     };
 
